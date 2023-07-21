@@ -107,25 +107,7 @@ public class TeamManager extends JFrame{
                 errorText.setVisible(false);
                 validColor(memberTextField);
                 
-                int temp;
-                if(e.getKeyText(e.getKeyCode()) == "Enter"){
-                    try{
-                        temp = Integer.parseInt(memberTextField.getText());
-                        validColor(memberTextField);
-                        teamTextField.requestFocus();
-                        try{
-                            temp = Integer.parseInt(teamTextField.getText());
-                            validColor(teamTextField);
-                            createBtn.doClick();
-                        }catch(Exception error){
-                            teamTextField.requestFocus();
-                        }
-                    }catch(Exception error){
-                        errorColor(memberTextField);
-                    }
-                }else{
-                    validColor(memberTextField);
-                }
+                memberTextFieldEvent(e);
             }
         });
         
@@ -134,25 +116,7 @@ public class TeamManager extends JFrame{
                 errorText.setVisible(false);
                 validColor(teamTextField);
 
-                int temp;
-                if(e.getKeyText(e.getKeyCode()) == "Enter"){
-                    try{
-                        temp = Integer.parseInt(teamTextField.getText());
-                        validColor(teamTextField);
-                        try{
-                            temp = Integer.parseInt(memberTextField.getText());
-                            validColor(memberTextField);
-                            createBtn.doClick();
-                        }catch(Exception error){
-                            errorColor(memberTextField);
-                            memberTextField.requestFocus();
-                        }
-                    }catch(Exception error){
-                        errorColor(teamTextField);
-                    }
-                }else{
-                    validColor(teamTextField);
-                }
+                teamTextFieldEvent(e);
             }
         });
 
@@ -258,6 +222,83 @@ public class TeamManager extends JFrame{
         errorText.setVisible(false);
         // add(errorText);
     }
+
+    void memberTextFieldEvent(KeyEvent e){
+        int temp;
+        if(e.getKeyText(e.getKeyCode()) == "Enter"){
+            try{
+                temp = Integer.parseInt(memberTextField.getText());
+                validColor(memberTextField);
+                teamTextField.requestFocus();
+                try{
+                    temp = Integer.parseInt(teamTextField.getText());
+                    validColor(teamTextField);
+                    createBtn.doClick();
+                }catch(Exception error){
+                    teamTextField.requestFocus();
+                }
+            }catch(Exception error){
+                errorColor(memberTextField);
+            }
+        }else if(e.getKeyText(e.getKeyCode()).toLowerCase().equals("up")){
+            int tempValue=0;
+            try{
+                tempValue = Integer.parseInt(memberTextField.getText());
+                memberTextField.setText(tempValue+1+"");
+            }catch(Exception err){
+                memberTextField.setText("0");
+            }
+        }else if(e.getKeyText(e.getKeyCode()).toLowerCase().equals("down")){
+            int tempValue=0;
+            try{
+                tempValue = Integer.parseInt(memberTextField.getText());
+                memberTextField.setText((tempValue-1<0? 0: tempValue-1)+"");
+            }catch(Exception err){
+                memberTextField.setText("0");
+            }
+        }else{
+            validColor(memberTextField);
+        }
+    }
+
+    void teamTextFieldEvent(KeyEvent e){
+        int temp;
+        if(e.getKeyText(e.getKeyCode()) == "Enter"){
+            try{
+                temp = Integer.parseInt(teamTextField.getText());
+                validColor(teamTextField);
+                try{
+                    temp = Integer.parseInt(memberTextField.getText());
+                    validColor(memberTextField);
+                    createBtn.doClick();
+                }catch(Exception error){
+                    errorColor(memberTextField);
+                    memberTextField.requestFocus();
+                }
+            }catch(Exception error){
+                errorColor(teamTextField);
+            }
+        }else if(e.getKeyText(e.getKeyCode()).toLowerCase().equals("up")){
+            int tempValue=0;
+            try{
+                tempValue = Integer.parseInt(teamTextField.getText());
+                teamTextField.setText(tempValue+1+"");
+            }catch(Exception err){
+                teamTextField.setText("0");
+            }
+        }else if(e.getKeyText(e.getKeyCode()).toLowerCase().equals("down")){
+            int tempValue=0;
+            try{
+                tempValue = Integer.parseInt(teamTextField.getText());
+                teamTextField.setText((tempValue-1<0? 0: tempValue-1)+"");
+            }catch(Exception err){
+                teamTextField.setText("0");
+            }
+        }else{
+            validColor(teamTextField);
+        }
+    }
+
     public static void getCurrentTime(JLabel currentTime){
         Timer getTime = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent e){
