@@ -141,6 +141,7 @@ public class AddMember extends JFrame{
         addBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addNameInList();
+                nameTextField.requestFocus();
             }
         });
         
